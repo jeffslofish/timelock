@@ -1,3 +1,5 @@
+const WALLET_ADDRESS = process.env.WALLET_ADDRESS
+
 // Calculate unlock time based on the current timestamp and lock period
 function calculateUnlockTime(lockPeriodInSeconds) {
   const currentTimestamp = Math.floor(Date.now() / 1000) // Current timestamp in seconds
@@ -12,10 +14,7 @@ async function main() {
   const unlockTime = calculateUnlockTime(lockPeriodInSeconds)
 
   // Start deployment, returning a promise that resolves to a contract object
-  const timelock = await TimeLock.deploy(
-    "0x5041d015de8c714c95b5b32984a0e43526e75dd0",
-    unlockTime
-  )
+  const timelock = await TimeLock.deploy(WALLET_ADDRESS, unlockTime)
   console.log("Contract deployed to address:", timelock.address)
 }
 
